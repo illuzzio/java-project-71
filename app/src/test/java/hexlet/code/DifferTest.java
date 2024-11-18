@@ -20,7 +20,7 @@ public class DifferTest {
         Path file1 = createTempJsonFile(content);
         Path file2 = createTempJsonFile(content);
 
-        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "stylish"
+        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "format"
         String expected = "{\n    host: hexlet.io\n    timeout: 50\n}";
         assertEquals(expected, result);
     }
@@ -32,7 +32,7 @@ public class DifferTest {
         Path file1 = createTempJsonFile(content1);
         Path file2 = createTempJsonFile(content2);
 
-        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "stylish"
+        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "format"
         String expected = "{\n    host: hexlet.io\n  + timeout: 50\n}";
         assertEquals(expected, result);
     }
@@ -44,7 +44,7 @@ public class DifferTest {
         Path file1 = createTempJsonFile(content1);
         Path file2 = createTempJsonFile(content2);
 
-        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "stylish"
+        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "format"
         String expected = "{\n    host: hexlet.io\n  - timeout: 50\n}";
         assertEquals(expected, result);
     }
@@ -56,7 +56,7 @@ public class DifferTest {
         Path file1 = createTempJsonFile(content1);
         Path file2 = createTempJsonFile(content2);
 
-        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "stylish"
+        String result = Differ.generate(file1.toString(), file2.toString()); // todo add "format"
         String expected = "{\n    host: hexlet.io\n  - timeout: 50\n  + timeout: 20\n}";
         assertEquals(expected, result);
     }

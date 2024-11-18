@@ -14,8 +14,8 @@ public class Differ {
 //    private final String format; // todo
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Differ(String format) {
-//        this.format = format;
+    private Differ(String format) {
+//        this.format = format; // todo
     }
 
     public static String generate(String filepath1, String filepath2) throws IOException {
