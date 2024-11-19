@@ -2,6 +2,7 @@ package hexlet.code;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
@@ -13,8 +14,12 @@ import java.util.concurrent.Callable;
         version = "gendiff 1.0.0" // Version of the application
 )
 public class App implements Callable<Integer> {
-//    @Option(names = {"-f", "--format"}, description = "output format [default: ${DEFAULT-VALUE}]", defaultValue = "stylish", paramLabel = "format")
-//    private static String format; // todo
+    @Option(
+            names = {"-f", "--format"},
+            description = "output format [default: ${DEFAULT-VALUE}]",
+            defaultValue = "stylish", paramLabel = "format"
+    )
+    private static String format; // todo
 
     @Parameters(index = "0", description = "path to the first file", paramLabel = "filepath1")
     private String filepath1;

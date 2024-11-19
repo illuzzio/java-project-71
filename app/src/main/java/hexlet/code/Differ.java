@@ -10,9 +10,9 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Differ {
+public final class Differ {
 //    private final String format; // todo
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private Differ(String format) {
 //        this.format = format; // todo
@@ -34,7 +34,7 @@ public class Differ {
         // reading file
         var content = Files.readString(path);
         // parsing JSON in Map
-        return objectMapper.readValue(content, new TypeReference<>() {});
+        return OBJECT_MAPPER.readValue(content, new TypeReference<>() { });
     }
 
     private static String buildDiff(Map<String, Object> data1, Map<String, Object> data2) {
