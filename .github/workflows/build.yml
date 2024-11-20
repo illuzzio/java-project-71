@@ -20,15 +20,24 @@ jobs:
           distribution: 'adopt'
           java-version: '21'
 
+      - name: Download Code Climate Test Reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+
+      - name: Prepare for Test Coverage Reporting
+        run: ./cc-test-reporter before-build
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
       - name: Build and test with Gradle
         working-directory: app
         run: ./gradlew build
 
-      - name: Upload coverage to CodeClimate
+      - name: Run Tests and Upload Coverage to CodeClimate
         working-directory: app
         run: |
-          ./cc-test-reporter before-build
           ./gradlew test
-          ./cc-test-reporter after-build --exit-code $?
+          ../cc-test-reporter after-build --exit-code $?
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
