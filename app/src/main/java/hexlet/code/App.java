@@ -14,6 +14,9 @@ import java.util.concurrent.Callable;
         version = "gendiff 1.0.0" // Version of the application
 )
 public class App implements Callable<Integer> {
+    public static final int ERROR_CODE = 1;
+    public static final int SUCCESS_CODE = 0;
+
     @Option(
             names = {"-f", "--format"},
             description = "output format [default: ${DEFAULT-VALUE}]",
@@ -50,10 +53,10 @@ public class App implements Callable<Integer> {
         try {
             String diff = Differ.generate(filepath1, filepath2);
             System.out.println(diff);
-            return 0;
+            return ERROR_CODE;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return 1;
+            return SUCCESS_CODE;
         }
     }
 }
