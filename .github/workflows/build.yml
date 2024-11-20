@@ -26,6 +26,10 @@ jobs:
           arguments: build
           build-root-directory: app
 
+      - name: Generate code coverage report
+        working-directory: app
+        run: ./gradlew jacocoTestReport
+
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
@@ -34,6 +38,3 @@ jobs:
           coverageCommand: ./gradlew jacocoTestReport
           coverageLocations: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
           debug: true
-        run: |
-          cd app
-          ./gradlew jacocoTestReport
