@@ -33,5 +33,7 @@ jobs:
         with:
           coverageCommand: ./gradlew jacocoTestReport
           coverageLocations: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-          working-directory: app
           debug: true
+        run: |
+          cd app
+          ./gradlew jacocoTestReport
