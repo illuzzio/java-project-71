@@ -32,11 +32,17 @@ jobs:
 
       - name: Build and test with Gradle
         working-directory: app
-        run: ./gradlew build test jacocoTestReport
+        run: ./gradlew build jacocoTestReport
+
+      - name: Debug: Check JaCoCo Report
+        working-directory: app
+        run: |
+          ls -l build/reports/jacoco/test
 
       - name: Upload Coverage to CodeClimate
         working-directory: app
         run: |
-          ../cc-test-reporter after-build --exit-code $? --coverage-input-type jacoco -p build/reports/jacoco/test
+          ../cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco
+          ../cc-test-reporter after-build --exit-code $?
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
