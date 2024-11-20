@@ -22,11 +22,11 @@ jobs:
 
       - name: Download Code Climate Test Reporter
         run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./app/cc-test-reporter
+          chmod +x ./app/cc-test-reporter
 
       - name: Prepare for Test Coverage Reporting
-        run: ./cc-test-reporter before-build
+        run: ./app/cc-test-reporter before-build
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
