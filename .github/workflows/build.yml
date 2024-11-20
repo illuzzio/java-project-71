@@ -37,6 +37,6 @@ jobs:
       - name: Upload Coverage to CodeClimate
         working-directory: app
         run: |
-          ../cc-test-reporter after-build --exit-code $? --coverage-input-type jacoco --coverage-files build/reports/jacoco/test/jacocoTestReport.xml
+          ../cc-test-reporter after-build --exit-code $? --coverage-input-type jacoco
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
