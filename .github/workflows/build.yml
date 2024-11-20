@@ -43,11 +43,11 @@ jobs:
         working-directory: app
         run: |
           ls -l src/main/java/hexlet/code/
-
-      - name: Fix JaCoCo Report Paths
-        working-directory: app
-        run: |
-          sed -i 's|<sourcefile name="|<sourcefile name="src/main/java/hexlet/code/|g' build/reports/jacoco/test/jacocoTestReport.xml
+#
+#      - name: Fix JaCoCo Report Paths
+#        working-directory: app
+#        run: |
+#          sed -i 's|<sourcefile name="|<sourcefile name="src/main/java/hexlet/code/|g' build/reports/jacoco/test/jacocoTestReport.xml
 
       - name: Debug Check Fixed JaCoCo Report
         working-directory: app
