@@ -49,6 +49,14 @@ jobs:
         run: |
           grep -oP '<sourcefile name=".*?"' build/reports/jacoco/test/jacocoTestReport.xml
 
+      - name: Run Code Climate Test Reporter
+        working-directory: app
+        run: |
+          ./cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco --prefix src/main/java
+          ./cc-test-reporter after-build --exit-code $?
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v9.0.0
         env:
@@ -57,4 +65,3 @@ jobs:
         with:
           coverageCommand: ./gradlew jacocoTestReport
           coverageLocations: ${{ github.workspace }}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-        working-directory: app
