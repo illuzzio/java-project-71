@@ -49,10 +49,15 @@ jobs:
         run: |
           sed -i 's|<sourcefile name="|<sourcefile name="src/main/java/|g' build/reports/jacoco/test/jacocoTestReport.xml
 
+      - name: Debug Check Fixed JaCoCo Report
+        working-directory: app
+        run: |
+          cat build/reports/jacoco/test/jacocoTestReport.xml
+
       - name: Upload Coverage to CodeClimate
         working-directory: app
         run: |
-          ../cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco --prefix ../app
+          ../cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco --prefix src/main/java
           ../cc-test-reporter after-build --exit-code $?
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
