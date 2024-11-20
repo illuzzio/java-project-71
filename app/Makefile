@@ -22,7 +22,7 @@ lint:
 		./gradlew checkstyleMain
 
 test:
-		./gradlew test
+		./gradlew checkstyleMain checkstyleTest
 
 report:
 	./gradlew jacocoTestReport --warning-mode all
