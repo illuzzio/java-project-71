@@ -23,11 +23,14 @@ jobs:
           arguments: build
           build-root-directory: app
 
+      - name: Ensure gradlew is executable
+        run: chmod +x ./gradlew
+
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          coverageCommand: ./gradlew jacocoTestReport
+          coverageCommand: app/gradlew jacocoTestReport
           coverageLocations: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
           debug: true
