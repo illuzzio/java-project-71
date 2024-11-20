@@ -19,7 +19,7 @@ application {
 dependencies {
     implementation("info.picocli:picocli:4.7.6")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
-    testImplementation("org.jacoco:org.jacoco.agent:0.8.9")
+    testImplementation("org.jacoco:org.jacoco.agent:0.8.10")
     testImplementation(platform("org.junit:junit-bom:5.10.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
@@ -48,8 +48,9 @@ tasks.named<Checkstyle>("checkstyleTest") {
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports {
-        xml.required.set(true)
-        html.required.set(true)
+        xml.required = true
+        html.required = false
+        csv.required = false
     }
 }
 
