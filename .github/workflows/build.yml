@@ -34,7 +34,7 @@ jobs:
         working-directory: app
         run: ./gradlew build jacocoTestReport
 
-      - name: Debug: Check JaCoCo Report
+      - name: Debug Check JaCoCo Report
         working-directory: app
         run: |
           ls -l build/reports/jacoco/test
