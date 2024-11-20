@@ -24,6 +24,7 @@ dependencies {
     annotationProcessor("org.apache.commons:commons-lang3:3.12.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testImplementation("org.slf4j:slf4j-log4j12:2.0.3")
     testImplementation("org.assertj:assertj-core:3.23.1")
     implementation("info.picocli:picocli:4.7.6")
