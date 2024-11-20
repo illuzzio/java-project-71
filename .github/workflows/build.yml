@@ -1,72 +1,30 @@
-name: Java CI
+name: Build
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  - push
+  - pull_request
 
 jobs:
-  build:
+  build-linter-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v2
       - name: Set up JDK 21
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
           java-version: '21'
-
-      - name: Download Code Climate Test Reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./app/cc-test-reporter
-          chmod +x ./app/cc-test-reporter
-
-      - name: Prepare for Test Coverage Reporting
-        run: ./app/cc-test-reporter before-build
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-
-      - name: Build and test with Gradle
-        working-directory: app
-        run: ./gradlew build test jacocoTestReport
-
-      - name: Debug Print JaCoCo Report Paths
-        working-directory: app
-        run: |
-          grep -oP '<sourcefile name=".*?"' build/reports/jacoco/test/jacocoTestReport.xml
-
-      - name: Debug Check Source Files
-        working-directory: app
-        run: |
-          ls -l src/main/java/hexlet/code/
-
-      - name: Fix JaCoCo Report Paths
-        working-directory: app
-        run: |
-          sed -i 's|<sourcefile name="hexlet/code/|<sourcefile name="src/main/java/hexlet/code/|g' build/reports/jacoco/test/jacocoTestReport.xml
-
-      - name: Debug Check Fixed JaCoCo Report
-        working-directory: app
-        run: |
-          grep -oP '<sourcefile name=".*?"' build/reports/jacoco/test/jacocoTestReport.xml
-
-      - name: Run Code Climate Test Reporter
-        working-directory: app
-        run: |
-          ./cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco --prefix src/main/java
-          ./cc-test-reporter after-build --exit-code $?
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-
-      - name: Publish code coverage
-        uses: paambaati/codeclimate-action@v9.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          JACOCO_SOURCE_PATH: ${{ github.workspace }}/app/src/main/java
+          distribution: 'temurin'
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
         with:
-          coverageCommand: ./gradlew jacocoTestReport
-          coverageLocations: ${{ github.workspace }}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          arguments: build
+          build-root-directory: app
+      - name: Publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+          JACOCO_SOURCE_PATH: app/src/main/java
+        with:
+          coverageCommand: make report
+          coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
