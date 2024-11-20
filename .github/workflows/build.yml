@@ -17,20 +17,21 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Ensure gradlew is executable
+        run: chmod +x app/gradlew
+
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: app
 
-      - name: Ensure gradlew is executable
-        run: chmod +x app/gradlew
-
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          coverageCommand: app/gradlew jacocoTestReport
+          coverageCommand: ./gradlew jacocoTestReport
           coverageLocations: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          working-directory: app
           debug: true
