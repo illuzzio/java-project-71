@@ -1,8 +1,8 @@
 name: Build
 
 on:
-  - push
-  - pull_request
+  push:
+  pull_request:
 
 jobs:
   build-linter-test:
@@ -36,5 +36,6 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageCommand: ./gradlew jacocoTestReport
-          coverageLocations: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          coverageLocations: build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          workingDirectory: app
           debug: true
