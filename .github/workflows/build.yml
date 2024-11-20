@@ -19,31 +19,46 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '21'
+      - uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.5
+      - run: ./gradlew checkstyleMain
+      - run: ./gradlew test
 
-      - name: Download Code Climate Test Reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
+      # - name: Publish code coverage
+      #   uses: paambaati/codeclimate-action@v9.0.0
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+      #     JACOCO_SOURCE_PATH: ${{github.workspace}}/src/main/java
+      #   with:
+      #     coverageCommand: make report
+      #     coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
 
-      - name: Prepare for Test Coverage Reporting
-        run: ./cc-test-reporter before-build
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
-      - name: Build and test with Gradle
-        working-directory: app
-        run: ./gradlew build jacocoTestReport
-
-      - name: Debug Check JaCoCo Report
-        working-directory: app
-        run: |
-          ls -l build/reports/jacoco/test
-          cat build/reports/jacoco/test/jacocoTestReport.xml
-
-      - name: Upload Coverage to CodeClimate
-        working-directory: app
-        run: |
-          ../cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco --add-prefix app
-          ../cc-test-reporter after-build --exit-code $?
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+#      - name: Download Code Climate Test Reporter
+#        run: |
+#          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#          chmod +x ./cc-test-reporter
+#
+#      - name: Prepare for Test Coverage Reporting
+#        run: ./cc-test-reporter before-build
+#        env:
+#          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+#
+#      - name: Build and test with Gradle
+#        working-directory: app
+#        run: ./gradlew build jacocoTestReport
+#
+#      - name: Debug Check JaCoCo Report
+#        working-directory: app
+#        run: |
+#          ls -l build/reports/jacoco/test
+#          cat build/reports/jacoco/test/jacocoTestReport.xml
+#
+#      - name: Upload Coverage to CodeClimate
+#        working-directory: app
+#        run: |
+#          ../cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco --add-prefix app
+#          ../cc-test-reporter after-build --exit-code $?
+#        env:
+#          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
