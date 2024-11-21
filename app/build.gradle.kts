@@ -82,7 +82,7 @@ tasks.register<Exec>("codeClimateCoverage") {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21) // switched to an older version of java for jacoco to work
+        languageVersion.set(JavaLanguageVersion.of(21)) // Убедитесь, что Java 21 доступна
     }
 }
 
