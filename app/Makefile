@@ -1,7 +1,7 @@
 APP_PATH = ./build/install/app/bin/app
 
 setup:
-	./gradlew wrapper --gradle-version 8.5
+		./gradlew wrapper --gradle-version 8.5
 
 run-dist:
 		$(APP_PATH)
@@ -25,9 +25,9 @@ test:
 		./gradlew checkstyleMain checkstyleTest
 
 report:
-	./gradlew jacocoTestReport --warning-mode all
-
-.PHONY: build
+		./gradlew jacocoTestReport --warning-mode all
 
 build:
 		./gradlew clean build
+
+.PHONY: build
