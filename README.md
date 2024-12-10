@@ -12,6 +12,6 @@
 ### Сравнение двух файлов YML (шаг 7):
 [![asciicast](https://asciinema.org/a/k2TxfzsG7JTj4lPQYurzLW5aG.svg)](https://asciinema.org/a/k2TxfzsG7JTj4lPQYurzLW5aG)
 
-### Сравнение двух файлов JSON (шаг 9):
+### Сравнение двух файлов в формате "stylish" (шаг 9):
 [![asciicast](https://asciinema.org/a/MPlbWfpyW6FSb4KQlAVPtdC46.svg)](https://asciinema.org/a/MPlbWfpyW6FSb4KQlAVPtdC46)
 
