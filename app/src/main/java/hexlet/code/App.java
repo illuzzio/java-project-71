@@ -5,13 +5,14 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+import java.io.IOException;
 import java.util.concurrent.Callable;
 
 @Command(
         name = "gendiff",
         description = "Compares two configuration files and shows a difference.",
         mixinStandardHelpOptions = true, // activate --version --help
-        version = "gendiff 1.0.0" // Version of the application
+        version = "gendiff v1.0.0" // Version of the application
 )
 public class App implements Callable<Integer> {
     public static final int ERROR_CODE = 1;
@@ -22,7 +23,7 @@ public class App implements Callable<Integer> {
             description = "output format [default: ${DEFAULT-VALUE}]",
             defaultValue = "stylish", paramLabel = "format"
     )
-    private static String format; // todo
+    private static String format;
 
     @Parameters(index = "0", description = "path to the first file", paramLabel = "filepath1")
     private String filepath1;
@@ -44,19 +45,22 @@ public class App implements Callable<Integer> {
             return;
         }
 
-        int exitCode = new CommandLine(new App()).execute(args);
+        var exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
 
     @Override
     public Integer call() {
         try {
-            String diff = Differ.generate(filepath1, filepath2);
+            String diff = Differ.generate(filepath1, filepath2, format);
             System.out.println(diff);
+            return SUCCESS_CODE;
+        } catch (IOException e) {
+            System.err.println("Error reading files: " + e.getMessage());
             return ERROR_CODE;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return SUCCESS_CODE;
+            return ERROR_CODE;
         }
     }
 }

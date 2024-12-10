@@ -1,72 +1,72 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.ArrayList;
+import static hexlet.code.formatters.Formatter.getFormatter;
+import static hexlet.code.FileUtils.parseFile;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.Objects;
+import java.util.TreeSet;
+import java.util.HashMap;
 
 public final class Differ {
-//    private final String format; // todo
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
-    private Differ(String format) {
-//        this.format = format; // todo
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        return generate(filepath1, filepath2, "stylish");
     }
 
-    public static String generate(String filepath1, String filepath2) throws IOException {
-        Map<String, Object> data1 = parseFile(filepath1);
-        Map<String, Object> data2 = parseFile(filepath2);
-
-        return buildDiff(data1, data2);
+    public static String generate(String filepath1, String filepath2, String formatName) throws Exception {
+//        System.out.println("data1 is: " + parseFile(filepath1));
+//        System.out.println("data2 is: " + parseFile(filepath2));
+        Map<String, Map<String, Object>> differences = getDiff(parseFile(filepath1), parseFile(filepath2));
+//        System.out.println("differences is: " + differences);
+        return getFormatter(formatName).format(differences);
     }
 
-    private static Map<String, Object> parseFile(String filepath) throws IOException {
-        var path = Paths.get(filepath).toAbsolutePath().normalize();
-        if (!Files.exists(path)) {
-            throw new IOException("File not found on the path - " + filepath);
-        }
+    private static Map<String, Map<String, Object>> getDiff(Map<String, Object> data1, Map<String, Object> data2) {
+        var allKeys = new TreeSet<>(data1.keySet());
+        allKeys.addAll(data2.keySet());
+//        System.out.println("All keys: " + allKeys);
+        Map<String, Map<String, Object>> result = new TreeMap<>();
 
-        // reading file
-        var content = Files.readString(path);
-        // parsing JSON in Map
-        return OBJECT_MAPPER.readValue(content, new TypeReference<>() { });
-    }
+        for (String key : allKeys) {
+            try {
+//                System.out.println("Processing key: " + key);
 
-    private static String buildDiff(Map<String, Object> data1, Map<String, Object> data2) {
-        var result = new StringBuilder("{\n");
+                Object value1 = data1.get(key);
+                Object value2 = data2.get(key);
 
-        var allKeys = new ArrayList<>(data1.keySet());
-        for (var key : data2.keySet()) {
-            if (!allKeys.contains(key)) {
-                allKeys.add(key);
-            }
-        }
+//                System.out.println("Value1: " + value1 + ", Value2: " + value2);
 
-        Collections.sort(allKeys);
-
-        for (var key : allKeys) {
-            var value1 = data1.get(key);
-            var value2 = data2.get(key);
-
-            if (data1.containsKey(key) && data2.containsKey(key)) {
-                if (value1.equals(value2)) {
-                    result.append("    ").append(key).append(": ").append(value1).append("\n");
+                Map<String, Object> diffEntry = new HashMap<>();
+                if (data1.containsKey(key) && !data2.containsKey(key)) {
+//                    System.out.println("Key removed: " + key + ", Value: " + value1);
+                    diffEntry.put("type", "removed");
+                    diffEntry.put("value1", value1);
+                    diffEntry.put("value2", null);
+                } else if (!data1.containsKey(key) && data2.containsKey(key)) {
+//                    System.out.println("Key added: " + key + ", Value: " + value2);
+                    diffEntry.put("type", "added");
+                    diffEntry.put("value1", null);
+                    diffEntry.put("value2", value2);
+                } else if (Objects.equals(value1, value2)) {
+//                    System.out.println("Key unchanged: " + key + ", Value: " + value1);
+                    diffEntry.put("type", "unchanged");
+                    diffEntry.put("value1", value1);
+                    diffEntry.put("value2", value2);
                 } else {
-                    result.append("  - ").append(key).append(": ").append(value1).append("\n");
-                    result.append("  + ").append(key).append(": ").append(value2).append("\n");
+//                    System.out.println("Key changed: " + key + ", Value1: " + value1 + ", Value2: " + value2);
+                    diffEntry.put("type", "changed");
+                    diffEntry.put("value1", value1);
+                    diffEntry.put("value2", value2);
                 }
-            } else if (data1.containsKey(key)) {
-                result.append("  - ").append(key).append(": ").append(value1).append("\n");
-            } else {
-                result.append("  + ").append(key).append(": ").append(value2).append("\n");
+
+                result.put(key, diffEntry);
+            } catch (Exception e) {
+//                System.out.println("Error processing key: " + key);
+                e.printStackTrace();
             }
         }
-        result.append("}");
-        return result.toString();
+
+        return result;
     }
+
 }
