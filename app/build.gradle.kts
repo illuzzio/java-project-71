@@ -54,25 +54,25 @@ checkstyle {
     configFile = file("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
 }
 
-//tasks.named<Checkstyle>("checkstyleMain") {
-//    source("src/main/java")
-//    include("**/*.java")
-//    exclude("**/generated/**")
-//}
-//
-//tasks.named<Checkstyle>("checkstyleTest") {
-//    source("src/test/java")
-//    include("**/*.java")
-//    exclude("**/generated/**")
-//}
-//
-//tasks.register<Exec>("codeClimateCoverage") {
-//    group = "verification"
-//    description = "Upload coverage to CodeClimate"
-//    commandLine = listOf(
-//        "./cc-test-reporter", "after-build", "--exit-code", "0"
-//    )
-//}
+tasks.named<Checkstyle>("checkstyleMain") {
+    source("src/main/java")
+    include("**/*.java")
+    exclude("**/generated/**")
+}
+
+tasks.named<Checkstyle>("checkstyleTest") {
+    source("src/test/java")
+    include("**/*.java")
+    exclude("**/generated/**")
+}
+
+tasks.register<Exec>("codeClimateCoverage") {
+    group = "verification"
+    description = "Upload coverage to CodeClimate"
+    commandLine = listOf(
+        "./cc-test-reporter", "after-build", "--exit-code", "0"
+    )
+}
 
 java {
     toolchain {
