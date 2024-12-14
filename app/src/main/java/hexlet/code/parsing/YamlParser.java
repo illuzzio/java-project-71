@@ -2,6 +2,7 @@ package hexlet.code.parsing;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+
 import java.util.Map;
 
 public class YamlParser implements Parser {

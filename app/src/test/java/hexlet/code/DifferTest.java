@@ -2,10 +2,10 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.nio.file.Path;
 import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
     private final String pathToJson1 = "src/test/java/resources/file1.json";

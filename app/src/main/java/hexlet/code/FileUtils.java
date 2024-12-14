@@ -1,9 +1,10 @@
 package hexlet.code;
 
-import static hexlet.code.parsing.ParserFactory.getParser;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
+
+import static hexlet.code.parsing.ParserFactory.getParser;
 
 public class FileUtils {
     public static Map<String, Object> parseFile(String filepath) throws Exception {
