@@ -12,7 +12,7 @@ public class DifferTest {
     private final String pathToJson2 = "src/test/java/resources/file2.json";
     private final String pathToYml1 = "src/test/java/resources/file1.yml";
     private final String pathToYml2 = "src/test/java/resources/file2.yml";
-    private final String pathToExpectedStylish = "src/test/java/resources/stylish";
+    private final String pathToExpectedStylish = "src/test/resources/stylish";
 
     @Test
     public void testWithoutFormatter() throws Exception {
