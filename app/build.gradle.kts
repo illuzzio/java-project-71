@@ -25,10 +25,9 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3")
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
     testImplementation("org.jacoco:org.jacoco.agent:0.8.10")
-    testImplementation(platform("org.junit:junit-bom:5.10.3"))
+    testImplementation(platform("org.junit:junit-bom:5.9.3"))
 }
 
 tasks.test {

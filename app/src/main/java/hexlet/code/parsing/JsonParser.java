@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-public class JsonParser implements Parser {
+public final class JsonParser implements Parser {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Override
     public Map<String, Object> parse(String content) throws Exception {
-        return OBJECT_MAPPER.readValue(content, new TypeReference<>() {});
+        return OBJECT_MAPPER.readValue(content, new TypeReference<>() { });
     }
 }

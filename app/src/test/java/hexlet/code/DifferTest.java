@@ -8,10 +8,10 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
-    private final String pathToJson1 = "src/test/java/resources/file1.json";
-    private final String pathToJson2 = "src/test/java/resources/file2.json";
-    private final String pathToYml1 = "src/test/java/resources/file1.yml";
-    private final String pathToYml2 = "src/test/java/resources/file2.yml";
+    private final String pathToJson1 = "src/test/resources/file1.json";
+    private final String pathToJson2 = "src/test/resources/file2.json";
+    private final String pathToYml1 = "src/test/resources/file1.yml";
+    private final String pathToYml2 = "src/test/resources/file2.yml";
     private final String pathToExpectedStylish = "src/test/resources/stylish";
 
     @Test
