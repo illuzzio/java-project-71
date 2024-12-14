@@ -3,7 +3,7 @@
 <a href="https://codeclimate.com/github/illuzzio/java-project-71/maintainability"><img src="https://api.codeclimate.com/v1/badges/00635b8f46a95950a57a/maintainability" /></a>
 <a href="https://codeclimate.com/github/illuzzio/java-project-71/test_coverage"><img src="https://api.codeclimate.com/v1/badges/00635b8f46a95950a57a/test_coverage" /></a>
 ### Project "Difference Calculator"
-Консольное приложение `gendiff`, сравнивающее два файла в форматах: `Json` и `Yaml`.
+Консольное приложение "Вычислитель отличий" `gendiff` - сравнивает два файла в форматах: `Json` и `Yaml`.
 ```
 gendiff [-hV] [-f=<formatName>] <filepath1> <filepath2>
 ```
@@ -28,3 +28,6 @@ gendiff [-hV] [-f=<formatName>] <filepath1> <filepath2>
 
 #### Вывод в формате stylish (step 9):
 [![asciicast](https://asciinema.org/a/MPlbWfpyW6FSb4KQlAVPtdC46.svg)](https://asciinema.org/a/MPlbWfpyW6FSb4KQlAVPtdC46)
+
+#### Вывод в формате plain (step 10):
+[![asciicast](https://asciinema.org/a/sObH658Emsv5uHoCAO7S5RKN6.svg)](https://asciinema.org/a/sObH658Emsv5uHoCAO7S5RKN6)

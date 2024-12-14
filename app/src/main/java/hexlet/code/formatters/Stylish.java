@@ -7,9 +7,9 @@ public final class Stylish implements Format {
     public String format(Map<String, Map<String, Object>> differences) {
         var result = new StringBuilder("{\n");
         differences.forEach((key, value) -> {
-            String type = (String) value.get("type");
-            Object value1 = value.get("value1");
-            Object value2 = value.get("value2");
+            var type = (String) value.get("type");
+            var value1 = value.get("value1");
+            var value2 = value.get("value2");
 
             switch (type) {
                 case "unchanged" -> result.append("    ").append(key).append(": ").append(toString(value1));
