@@ -65,6 +65,10 @@ tasks.named<Checkstyle>("checkstyleTest") {
     exclude("**/generated/**")
 }
 
+tasks.register("install") {
+    dependsOn("installDist")
+}
+
 tasks.register<Exec>("codeClimateCoverage") {
     group = "verification"
     description = "Upload coverage to CodeClimate"

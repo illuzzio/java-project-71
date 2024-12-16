@@ -31,3 +31,6 @@ gendiff [-hV] [-f=<formatName>] <filepath1> <filepath2>
 
 #### Вывод в формате plain (step 10):
 [![asciicast](https://asciinema.org/a/sObH658Emsv5uHoCAO7S5RKN6.svg)](https://asciinema.org/a/sObH658Emsv5uHoCAO7S5RKN6)
+
+#### Вывод в формате json (step 11):
+[![asciicast](https://asciinema.org/a/9FRq11zCI3vDqDGoOqjZLHAiv.svg)](https://asciinema.org/a/9FRq11zCI3vDqDGoOqjZLHAiv)
