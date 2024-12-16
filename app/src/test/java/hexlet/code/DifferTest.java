@@ -17,7 +17,7 @@ public class DifferTest {
     private final String pathToExpectedJson = "src/test/resources/json";
 
     @Test
-    public void testJsonWithoutFormatter() throws Exception {
+    public void testWithoutFormatter() throws Exception {
         var fullPath = Path.of(pathToExpectedStylish).toAbsolutePath().normalize();
         var expectedStylish = "";
         try {
@@ -26,30 +26,9 @@ public class DifferTest {
             System.out.println(e.getMessage());
         }
         assertEquals(expectedStylish, Differ.generate(pathToJson1, pathToJson2));
-    }
-
-    @Test
-    public void testYamlWithoutFormatter() throws Exception {
-        var fullPath = Path.of(pathToExpectedStylish).toAbsolutePath().normalize();
-        var expectedStylish = "";
-        try {
-            expectedStylish = Files.readString(fullPath);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
         assertEquals(expectedStylish, Differ.generate(pathToYaml1, pathToYaml2));
-    }
-
-    @Test
-    public void testCombineWithoutFormatter() throws Exception {
-        var fullPath = Path.of(pathToExpectedStylish).toAbsolutePath().normalize();
-        var expectedStylish = "";
-        try {
-            expectedStylish = Files.readString(fullPath);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
         assertEquals(expectedStylish, Differ.generate(pathToJson1, pathToYaml2));
+        assertEquals(expectedStylish, Differ.generate(pathToYaml1, pathToJson2));
     }
 
     @Test
